@@ -24,10 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Artist rotation logic
     const artistsList = [
         "hovinkovasracka",
-        "Dzagub",
         "hvnpan",
         "lostondos",
-        "DeratizacniKevlar5",
+        "DeratizacniKevlar5 (?)",
         "Krystof Crack",
         "Julca$h",
         "DjCarlozz"
