@@ -1,0 +1,309 @@
+/* Global styles */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply the gradient to the body */
+body {
+  background: linear-gradient(
+    to bottom,
+    #252525, /* Dark blue at the top */
+    #121212 /* Dark gray at the bottom */
+  );
+  background-attachment: fixed; /* Ensures the gradient covers the entire page */
+  color: white; /* Text color for dark mode */
+  font-family: 'Inter', sans-serif;
+  transition: 2s;
+}
+
+/* Header */
+header {
+  background: linear-gradient(
+    to bottom,
+    rgba(18, 18, 18, 0.5), /* Dark blue at the top */
+    rgba(18, 18, 18, 0.0) /* Dark gray at the bottom */
+  );
+  /*background-color: rgba(18, 18, 18, 0.5); /* Semi-transparent background matching the body */
+  backdrop-filter: blur(10px); /* Blur effect */
+  padding: 40px;
+  text-align: center;
+  position: relative;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Space between image and text */
+}
+
+.header-image {
+  width: 200px; /* Adjust size as needed */
+}
+
+h1 {
+  font-size: 36px;
+  margin: 0;
+}
+
+main {
+  padding: 20px;
+}
+
+/* Blocks Container */
+#blocks-container {
+  display: flex;
+  justify-content: center; /* Center the blocks horizontally */
+  gap: 20px; /* Space between blocks */
+  margin-bottom: 20px; /* Space between blocks and the next section */
+}
+
+/* Now Playing Section with Fixed Size */
+#now-playing, .block {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Align content to the bottom */
+  align-items: flex-start; /* Align content to the left */
+  width: 400px; /* Fixed width */
+  height: 400px; /* Fixed height */
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: relative;
+  transition: 2s;
+}
+
+/* Now Playing Label */
+#now-playing-label {
+  position: absolute; /* Position it absolutely within the #now-playing box */
+  top: 20px; /* Adjust distance from the top */
+  left: 20px; /* Adjust distance from the left */
+  font-size: 20px; /* Adjust font size */
+  font-weight: 400; /* Make it bold */
+  color: rgba(255, 255, 255,); /* Semi-transparent white */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+/* Album Artwork and Track Info Container */
+.album-and-info {
+  display: flex;
+  align-items: flex-end; /* Align items to the bottom */
+  gap: 20px; /* Space between album cover and track info */
+}
+
+/* Album Artwork */
+.album-artwork {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid hsla(0, 0%, 100%, 0.25);
+}
+
+.album-artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Track Info */
+.track-info {
+  text-align: left; /* Align text to the left */
+  overflow: hidden;
+  margin-top: -10px;
+  margin-bottom: 0; /* Remove the previous margin-bottom */
+}
+
+#song-title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+#artist-name {
+  margin-top: -25px;
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+
+/* Additional Blocks */
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text */
+}
+
+/* Floating Player */
+/* Floating Player */
+#floating-player {
+  position: fixed;
+  bottom: 200px; /* Adjusted to be higher */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: rgba(0, 0, 0, 0.6); /* More transparent background */
+  padding: 15px 25px;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect for the floating player */
+#floating-player:hover {
+  background-color: rgba(0, 0, 0, 0.7); /* Slightly less transparent on hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6); /* Darker shadow on hover */
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* Play/Pause Button */
+#play-pause-btn {
+  background-color: rgba(255, 255, 255, 0.05); /* Darker button background */
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover effect for the play/pause button */
+#play-pause-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter on hover */
+  transform: scale(1.1);
+}
+
+/* Ripple effect animation */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+#play-pause-btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1); /* Darker ripple effect */
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  animation: ripple 0.6s ease-out;
+}
+
+#play-pause-btn:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+#play-pause-btn i {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.9); /* Slightly dimmed white for icons */
+  transition: transform 0.3s ease;
+}
+
+/* Volume Control */
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.volume-control:hover {
+  opacity: 1;
+}
+
+.volume-control i {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9); /* Slightly dimmed white for icons */
+  transition: transform 0.3s ease;
+}
+
+.volume-control:hover i {
+  transform: scale(1.1);
+}
+
+/* Custom Volume Slider */
+#volume-slider {
+  width: 100px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1); /* Darker slider track */
+  border-radius: 5px;
+  height: 5px;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, width 0.3s ease;
+  accent-color: #ffffff; /* Spotify green color */
+}
+
+/* Customize the slider thumb */
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #ffffff; /* Spotify green color */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#volume-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: #ffffff; /* Spotify green color */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#volume-slider:hover {
+  opacity: 1;
+  width: 120px;
+}
+/* Listener Count */
+#listener-count {
+  position: absolute; /* Position it absolutely within the #now-playing box */
+  top: 22px; /* Adjust distance from the top */
+  right: 20px; /* Adjust distance from the right */
+  font-size: 14px; /* Adjust font size */
+  font-weight: 400; /* Normal weight */
+  color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+  margin: 0; /* Remove default margin */
+  padding: 0px 0px; /* Add some padding */
+}
+/* Slide Animation */
+.track-info {
+  position: relative;
+  overflow: hidden;
+}
+
+.track-info .slide-container {
+  transition: transform 0.5s ease-in-out;
+}
+
+.track-info.slide-out .slide-container {
+  transform: translateX(-100%);
+}
+
+.track-info.slide-in .slide-container {
+  transform: translateX(0);
+}
