@@ -142,7 +142,7 @@ main {
 /* Floating Player */
 #floating-player {
   position: fixed;
-  bottom: 200px; /* Adjusted to be higher */
+  bottom: 8%; /* Adjusted to be higher */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
