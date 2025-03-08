@@ -41,7 +41,8 @@ header {
 }
 
 .header-image {
-  width: 200px; /* Adjust size as needed */
+  width: 300px; /* Adjust size as needed */
+  padding-top: 2vh;
 }
 
 h1 {
