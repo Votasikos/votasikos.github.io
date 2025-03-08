@@ -8,7 +8,7 @@ body {
   background: linear-gradient(to bottom, #252525, #121212);
   background-attachment: fixed;
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Red Hat Display', sans-serif;
   transition: 2s;
 }
 
@@ -91,7 +91,7 @@ main {
 
 #song-title {
   font-size: 32px;
-  font-weight: bold;
+  font-weight: 800;
 }
 
 #artist-name {
