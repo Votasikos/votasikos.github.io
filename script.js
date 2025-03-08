@@ -1,19 +1,14 @@
-// Include the Color Thief library
 const colorThief = new ColorThief();
 
-// API credentials
-const lautFmApiUrl = 'https://api.laut.fm/station/radio-dance-eu/current_song'; // Station URL
-const spotifyClientId = 'a654d3f8a82546e9b5d1dcaf75117daf'; // Replace with your Spotify Client ID
-const spotifyClientSecret = '78ee3833697d458aa60d030f4f61f90a'; // Replace with your Spotify Client Secret
+const lautFmApiUrl = 'https://api.laut.fm/station/radio-dance-eu/current_song';
+const spotifyClientId = 'a654d3f8a82546e9b5d1dcaf75117daf';
+const spotifyClientSecret = '78ee3833697d458aa60d030f4f61f90a';
 
-// Flag to track if an update is in progress
 let isUpdating = false;
 
-// Variables to track current track information
 let currentSongTitle = '';
 let currentArtistName = '';
 
-// Function to get Spotify access token
 async function getSpotifyAccessToken() {
   try {
     const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -31,7 +26,6 @@ async function getSpotifyAccessToken() {
   }
 }
 
-// Function to fetch album cover from Spotify
 async function getAlbumCoverFromSpotify(artist, track) {
   try {
     const accessToken = await getSpotifyAccessToken();
@@ -48,57 +42,48 @@ async function getAlbumCoverFromSpotify(artist, track) {
       }
     );
     const data = await response.json();
-    const albumCoverUrl = data.tracks?.items?.[0]?.album?.images?.[0]?.url; // Get the largest image
+    const albumCoverUrl = data.tracks?.items?.[0]?.album?.images?.[0]?.url;
 
     if (albumCoverUrl) {
       document.getElementById('album-cover').src = albumCoverUrl;
-      document.getElementById('album-cover').crossOrigin = "Anonymous"; // Set cross-origin header
+      document.getElementById('album-cover').crossOrigin = "Anonymous";
 
-      // Use Color Thief to extract the dominant color
       const img = new Image();
-      img.crossOrigin = "Anonymous"; // Allow cross-origin access
+      img.crossOrigin = "Anonymous";
       img.src = albumCoverUrl;
       img.onload = () => {
-        const color = colorThief.getColor(img); // Get dominant color
-        const darkerColor = makeColorDarker(color); // Make the color darker for the "Now Playing" section
-        const evenDarkerColor = makeColorEvenDarker(color); // Make the color even darker for the background
+        const color = colorThief.getColor(img);
+        const darkerColor = makeColorDarker(color);
+        const evenDarkerColor = makeColorEvenDarker(color);
 
-        // Apply the even darker color to the gradient background
         document.body.style.background = `linear-gradient(
           to bottom,
-          rgb(${evenDarkerColor.join(', ')}), /* Even darker album color at the top */
-          #000000 /* Dark gray at the bottom */
+          rgb(${evenDarkerColor.join(', ')}),
+          #000000
         )`;
-        document.body.style.backgroundAttachment = "fixed"; // Ensure the gradient covers the entire page
+        document.body.style.backgroundAttachment = "fixed";
 
-        // Update the "Now Playing" section background
         document.querySelector('#now-playing').style.backgroundColor = `rgb(${darkerColor.join(', ')})`;
       };
     }
   } catch (error) {
-    // Handle error silently
   }
 }
 
-// Function to make a color darker
 function makeColorDarker(color, darknessFactor = 0.6) {
-  return color.map(value => Math.floor(value * darknessFactor)); // Reduce each RGB value
+  return color.map(value => Math.floor(value * darknessFactor));
 }
 
-// Function to make a color even darker for the background
 function makeColorEvenDarker(color) {
-  const darknessFactor = 0.4; // Adjust this value to control how much darker the color becomes
+  const darknessFactor = 0.4;
   return makeColorDarker(color, darknessFactor);
 }
 
-// Fetch now playing track from laut.fm API
 async function getNowPlaying() {
-  // Check if an update is already in progress
   if (isUpdating) {
     return;
   }
 
-  // Set the flag to indicate an update is in progress
   isUpdating = true;
 
   try {
@@ -106,78 +91,62 @@ async function getNowPlaying() {
     const data = await response.json();
 
     const songTitle = data.title;
-    const artistName = data.artist.name;  // Artist name is nested in the 'artist' object
+    const artistName = data.artist.name;
 
-    // Check if the track information has changed
     if (songTitle === currentSongTitle && artistName === currentArtistName) {
-      isUpdating = false; // Reset the flag
+      isUpdating = false;
       return;
     }
 
-    // Update the current track information
     currentSongTitle = songTitle;
     currentArtistName = artistName;
 
-    // Trigger slide-out animation
     const trackInfo = document.querySelector('.track-info');
     trackInfo.classList.add('slide-out');
 
-    // Wait for the slide-out animation to complete
     setTimeout(() => {
-      // Update the "Now Playing" section
       document.getElementById('song-title').innerText = songTitle;
       document.getElementById('artist-name').innerText = artistName;
 
-      // Trigger slide-in animation
       trackInfo.classList.remove('slide-out');
       trackInfo.classList.add('slide-in');
 
-      // Remove slide-in class after animation completes
       setTimeout(() => {
         trackInfo.classList.remove('slide-in');
-
-        // Reset the flag after the animation completes
         isUpdating = false;
-      }, 500); // Match the duration of the slide-in animation
-    }, 500); // Match the duration of the slide-out animation
+      }, 500);
+    }, 500);
 
-    // Fetch album cover from Spotify using the track info
     getAlbumCoverFromSpotify(artistName, songTitle);
 
   } catch (error) {
-    // Reset the flag if an error occurs
     isUpdating = false;
   }
 }
 
-// Function to fetch listener count
 async function getListenerCount() {
   try {
     const response = await fetch('https://api.laut.fm/station/radio-dance-eu/listeners');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const listenerCount = await response.text(); // The API returns the listener count as plain text
+    const listenerCount = await response.text();
 
-    // Update the listener count in the UI
     document.getElementById('listener-count').innerText = `Listeners: ${listenerCount}`;
   } catch (error) {
-    document.getElementById('listener-count').innerText = 'Listeners: N/A'; // Fallback text
+    document.getElementById('listener-count').innerText = 'Listeners: N/A';
   }
 }
 
-// Player Controls Functionality
 document.addEventListener('DOMContentLoaded', () => {
-  const audio = new Audio('https://stream.laut.fm/radio-dance-eu'); // Replace with your radio stream URL
+  const audio = new Audio('https://stream.laut.fm/radio-dance-eu');
   const playPauseBtn = document.getElementById('play-pause-btn');
   const playIcon = document.getElementById('play-icon');
   const pauseIcon = document.getElementById('pause-icon');
   const volumeSlider = document.getElementById('volume-slider');
 
-  // Set initial volume to 50%
   audio.volume = 0.5;
 
-  // Play/Pause Button
   playPauseBtn.addEventListener('click', () => {
     if (audio.paused) {
       audio.play();
@@ -190,16 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Volume Slider
   volumeSlider.addEventListener('input', () => {
     audio.volume = volumeSlider.value;
   });
 });
 
-// Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
   getNowPlaying();
-  getListenerCount(); // Call the listener count function on page load
-  setInterval(getNowPlaying, 10000); // Update now playing every 10 seconds
-  setInterval(getListenerCount, 10000); // Update listener count every 10 seconds
+  getListenerCount();
+  setInterval(getNowPlaying, 10000);
+  setInterval(getListenerCount, 10000);
 });
