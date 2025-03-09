@@ -217,10 +217,10 @@ function startTextScroll() {
   const keyframes = `
     @keyframes scrollText {
       0% {
-        left: 100%;
+        transform: translateX(100%);
       }
       100% {
-        left: -${textWidth}px;
+        transform: translateX(-${textWidth + containerWidth}px);
       }
     }
   `;
