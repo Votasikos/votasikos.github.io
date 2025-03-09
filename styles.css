@@ -32,11 +32,11 @@ header {
 
 .header-image {
   width: 300px;
-  padding-top: 2vh;
+  padding-top: 1vh;
 }
 
 main {
-  padding: 20px;
+  padding: 0px;
 }
 
 #blocks-container {
