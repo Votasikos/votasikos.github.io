@@ -255,7 +255,6 @@ main {
 .track-info.slide-in .slide-container {
   transform: translateX(0);
 }
-
 #rolling-text {
   width: 440px;
   height: 50px;
@@ -277,8 +276,8 @@ main {
   font-size: 18px;
   font-weight: 300;
   color: white;
+  transform: translateX(100%);
 }
-
 .temperature {
   font-weight: 800;
   font-size: 18px;
