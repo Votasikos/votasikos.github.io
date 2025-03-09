@@ -237,11 +237,9 @@ function startTextScroll() {
   // Aplikace animace na text
   temperatureInfo.style.animation = `scrollText ${animationDuration}s linear infinite`;
 }
-
 document.addEventListener('DOMContentLoaded', () => {
-  startTextScroll();
   getTemperatureData();
-  setInterval(getTemperatureData, 600000);
+  setInterval(getTemperatureData, 600000); // Aktualizace každých 10 minut
 
   getNowPlaying();
   getListenerCount();
