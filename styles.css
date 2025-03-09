@@ -258,13 +258,13 @@ main {
 #rolling-text {
   width: 440px;
   height: 50px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
   margin-top: 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
+  position: relative;
 }
 
 #rolling-text marquee {
@@ -284,6 +284,7 @@ main {
     transform: translateX(-100%); /* Konec pohybu (text mimo obrazovku vlevo) */
   }
 }
+
 
 .temperature {
   font-weight: 800; /* Tučné písmo */
