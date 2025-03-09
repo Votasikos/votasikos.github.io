@@ -272,6 +272,17 @@ main {
   font-weight: 300;
   color: white;
   white-space: nowrap;
+  position: absolute;
+  animation: scroll-text 20s linear infinite; /* Zpomalení pohybu */
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(100%); /* Začátek pohybu (text mimo obrazovku vpravo) */
+  }
+  100% {
+    transform: translateX(-100%); /* Konec pohybu (text mimo obrazovku vlevo) */
+  }
 }
 
 .temperature {
