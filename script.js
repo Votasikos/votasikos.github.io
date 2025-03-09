@@ -207,15 +207,33 @@ function startTextScroll() {
   const textWidth = temperatureInfo.scrollWidth;
   const containerWidth = rollingText.offsetWidth;
 
-  const speed = 50;
+  const speed = 50; // Pixels per second
   const animationDuration = (textWidth + containerWidth) / speed;
 
-  temperatureInfo.style.animation = `slideIn 1s ease-out forwards`;
+  // Reset the position and opacity of the text
+  temperatureInfo.style.left = '100%';
+  temperatureInfo.style.opacity = '1';
 
-  temperatureInfo.addEventListener('animationend', () => {
-    temperatureInfo.style.opacity = '1';
-    temperatureInfo.style.animation = `scrollText ${animationDuration}s linear infinite`;
-  }, { once: true });
+  // Define the keyframes for the scrolling animation
+  const keyframes = `
+    @keyframes scrollText {
+      0% {
+        left: 100%;
+      }
+      100% {
+        left: -${textWidth}px;
+      }
+    }
+  `;
+
+  // Add the keyframes to the document
+  const styleSheet = document.createElement('style');
+  styleSheet.type = 'text/css';
+  styleSheet.innerText = keyframes;
+  document.head.appendChild(styleSheet);
+
+  // Apply the animation to the temperature info
+  temperatureInfo.style.animation = `scrollText ${animationDuration}s linear infinite`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
