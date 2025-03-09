@@ -1,6 +1,6 @@
 const colorThief = new ColorThief();
 
-const lautFmApiUrl = 'https://api.laut.fm/station/highfmeu/current_song';
+const lautFmApiUrl = 'https://api.laut.fm/station/radio-dance-eu/current_song';
 const spotifyClientId = 'a654d3f8a82546e9b5d1dcaf75117daf';
 const spotifyClientSecret = '78ee3833697d458aa60d030f4f61f90a';
 
@@ -124,7 +124,7 @@ async function getNowPlaying() {
 
 async function getListenerCount() {
   try {
-    const response = await fetch('https://api.laut.fm/station/highfmeu/listeners');
+    const response = await fetch('https://api.laut.fm/station/radio-dance-eu/listeners');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -136,7 +136,7 @@ async function getListenerCount() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const audio = new Audio('https://stream.laut.fm/highfmeu');
+  const audio = new Audio('https://stream.laut.fm/radio-dance-eu');
   const playPauseBtn = document.getElementById('play-pause-btn');
   const playIcon = document.getElementById('play-icon');
   const pauseIcon = document.getElementById('pause-icon');
