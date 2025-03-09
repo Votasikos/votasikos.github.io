@@ -199,22 +199,21 @@ async function getTemperatureData() {
 
   document.getElementById('temperature-info').innerHTML = temperatureInfo;
 }
-
 function startTextScroll() {
   const rollingText = document.getElementById('rolling-text');
   const temperatureInfo = document.getElementById('temperature-info');
 
-  const textWidth = temperatureInfo.scrollWidth;
-  const containerWidth = rollingText.offsetWidth;
+  const textWidth = temperatureInfo.scrollWidth; // Šířka textu
+  const containerWidth = rollingText.offsetWidth; // Šířka kontejneru
 
-  const speed = 50; // Pixels per second
-  const animationDuration = (textWidth + containerWidth) / speed;
+  const speed = 50; // Rychlost scrollování (pixely za sekundu)
+  const animationDuration = (textWidth + containerWidth) / speed; // Doba trvání animace
 
-  // Reset the position and opacity of the text
+  // Resetování pozice textu
   temperatureInfo.style.left = '100%';
   temperatureInfo.style.opacity = '1';
 
-  // Define the keyframes for the scrolling animation
+  // Definice klíčových snímků pro animaci
   const keyframes = `
     @keyframes scrollText {
       0% {
@@ -226,13 +225,13 @@ function startTextScroll() {
     }
   `;
 
-  // Add the keyframes to the document
+  // Přidání klíčových snímků do dokumentu
   const styleSheet = document.createElement('style');
   styleSheet.type = 'text/css';
   styleSheet.innerText = keyframes;
   document.head.appendChild(styleSheet);
 
-  // Apply the animation to the temperature info
+  // Aplikace animace na text
   temperatureInfo.style.animation = `scrollText ${animationDuration}s linear infinite`;
 }
 
