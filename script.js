@@ -179,7 +179,8 @@ async function getTemperatureData() {
 
   let temperatureInfo = '<span class="info-text">Aktuální teploty po ČR: </span> ';
 
-  for (const city of cities) {
+  // Paralelní načítání dat pro všechna města
+  const promises = cities.map(async (city) => {
     try {
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true`;
       const response = await fetch(url);
@@ -190,16 +191,20 @@ async function getTemperatureData() {
 
       const data = await response.json();
       const temperature = Math.round(data.current_weather.temperature);
-      temperatureInfo += `${city.name.toUpperCase()} <span class="temperature">${temperature}°C</span> +++ `;
+      return `${city.name.toUpperCase()} <span class="temperature">${temperature}°C</span> +++ `;
     } catch (error) {
-      temperatureInfo += `${city.name.toUpperCase()} <span class="temperature">N/A°C</span> +++ `;
+      return `${city.name.toUpperCase()} <span class="temperature">N/A°C</span> +++ `;
     }
-  }
+  });
+
+  // Počkejte na dokončení všech požadavků
+  const results = await Promise.all(promises);
+  temperatureInfo += results.join('');
 
   // Nastavení textu do elementu
   document.getElementById('temperature-info').innerHTML = temperatureInfo;
 
-  // Spuštění animace po načtení dat
+  // Restart animace po načtení nových dat
   startTextScroll();
 }
 function startTextScroll() {
@@ -237,8 +242,13 @@ function startTextScroll() {
   // Aplikace animace na text
   temperatureInfo.style.animation = `scrollText ${animationDuration}s linear infinite`;
 }
+// Přidejte náhledový text při načtení stránky
 document.addEventListener('DOMContentLoaded', () => {
-  getTemperatureData();
+  const temperatureInfo = document.getElementById('temperature-info');
+  temperatureInfo.innerHTML = '<span class="info-text">Načítám teploty...</span>';
+  startTextScroll(); // Spusťte animaci okamžitě
+
+  getTemperatureData(); // Načtěte data o teplotě
   setInterval(getTemperatureData, 600000); // Aktualizace každých 10 minut
 
   getNowPlaying();
