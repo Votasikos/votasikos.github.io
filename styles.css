@@ -276,7 +276,7 @@ main {
   white-space: nowrap;
   position: absolute;
   left: 100%;
-  opacity: 0;
+  opacity: 1;
 }
 
 .temperature {
