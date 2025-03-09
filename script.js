@@ -207,7 +207,7 @@ function startTextScroll() {
   const temperatureInfo = document.getElementById('temperature-info');
 
   const textWidth = temperatureInfo.scrollWidth; // Šířka textu
-  const containerWidth = rollingText.offsetWidth; // Šířka kontejneru
+  const containerWidth = 440; // Pevná šířka kontejneru
 
   const speed = 50; // Rychlost scrollování (pixely za sekundu)
   const animationDuration = (textWidth + containerWidth) / speed; // Doba trvání animace
@@ -223,7 +223,7 @@ function startTextScroll() {
         transform: translateX(100%);
       }
       100% {
-        transform: translateX(-${textWidth + containerWidth}px);
+        transform: translateX(-${textWidth}px);
       }
     }
   `;
