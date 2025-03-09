@@ -258,13 +258,13 @@ main {
 #rolling-text {
   width: 440px;
   height: 50px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   margin-top: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
-  position: relative;
 }
 
 #rolling-text marquee {
@@ -272,19 +272,7 @@ main {
   font-weight: 300;
   color: white;
   white-space: nowrap;
-  position: absolute;
-  animation: scroll-text 20s linear infinite; /* Zpomalení pohybu */
 }
-
-@keyframes scroll-text {
-  0% {
-    transform: translateX(100%); /* Začátek pohybu (text mimo obrazovku vpravo) */
-  }
-  100% {
-    transform: translateX(-100%); /* Konec pohybu (text mimo obrazovku vlevo) */
-  }
-}
-
 
 .temperature {
   font-weight: 800; /* Tučné písmo */
