@@ -160,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.volume = volumeSlider.value;
   });
 });
-
 async function getTemperatureData() {
   const cities = [
     { name: 'Praha', lat: 50.0755, lon: 14.4378 },
@@ -197,7 +196,11 @@ async function getTemperatureData() {
     }
   }
 
+  // Nastavení textu do elementu
   document.getElementById('temperature-info').innerHTML = temperatureInfo;
+
+  // Spuštění animace po načtení dat
+  startTextScroll();
 }
 function startTextScroll() {
   const rollingText = document.getElementById('rolling-text');
@@ -210,7 +213,7 @@ function startTextScroll() {
   const animationDuration = (textWidth + containerWidth) / speed; // Doba trvání animace
 
   // Resetování pozice textu
-  temperatureInfo.style.left = '100%';
+  temperatureInfo.style.transform = 'translateX(100%)';
   temperatureInfo.style.opacity = '1';
 
   // Definice klíčových snímků pro animaci
