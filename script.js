@@ -26,6 +26,8 @@ async function getSpotifyAccessToken() {
 }
 
 async function getAlbumCoverFromSpotify(artist, track) {
+  const fallbackImage = 'fallback.png'; // Replace with your actual fallback image path
+
   try {
     const accessToken = await getSpotifyAccessToken();
     if (!accessToken) {
@@ -41,32 +43,43 @@ async function getAlbumCoverFromSpotify(artist, track) {
       }
     );
     const data = await response.json();
-    const albumCoverUrl = data.tracks?.items?.[0]?.album?.images?.[0]?.url;
+    let albumCoverUrl = data.tracks?.items?.[0]?.album?.images?.[0]?.url;
 
-    if (albumCoverUrl) {
-      document.getElementById('album-cover').src = albumCoverUrl;
-      document.getElementById('album-cover').crossOrigin = "Anonymous";
-
-      const img = new Image();
-      img.crossOrigin = "Anonymous";
-      img.src = albumCoverUrl;
-      img.onload = () => {
-        const color = colorThief.getColor(img);
-        const darkerColor = makeColorDarker(color);
-        const evenDarkerColor = makeColorEvenDarker(color);
-
-        document.body.style.background = `linear-gradient(
-          to bottom,
-          rgb(${evenDarkerColor.join(', ')}),
-          #000000
-        )`;
-        document.body.style.backgroundAttachment = "fixed";
-
-        document.querySelector('#now-playing').style.backgroundColor = `rgb(${darkerColor.join(', ')})`;
-      };
+    if (!albumCoverUrl) {
+      albumCoverUrl = fallbackImage; // Use fallback if no cover found
     }
-  } catch (error) {}
+
+    const albumCoverElement = document.getElementById('album-cover');
+    albumCoverElement.src = albumCoverUrl;
+    albumCoverElement.onerror = () => {
+      albumCoverElement.src = fallbackImage; // If loading fails, set fallback image
+    };
+
+    albumCoverElement.crossOrigin = "Anonymous";
+
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = albumCoverUrl;
+    img.onload = () => {
+      const color = colorThief.getColor(img);
+      const darkerColor = makeColorDarker(color);
+      const evenDarkerColor = makeColorEvenDarker(color);
+
+      document.body.style.background = `linear-gradient(
+        to bottom,
+        rgb(${evenDarkerColor.join(', ')}),
+        #000000
+      )`;
+      document.body.style.backgroundAttachment = "fixed";
+
+      document.querySelector('#now-playing').style.backgroundColor = `rgb(${darkerColor.join(', ')})`;
+    };
+
+  } catch (error) {
+    document.getElementById('album-cover').src = fallbackImage;
+  }
 }
+
 
 function makeColorDarker(color, darknessFactor = 0.6) {
   return color.map(value => Math.floor(value * darknessFactor));
