@@ -140,9 +140,9 @@ main {
 #song-title {
   font-size: 28px;
   font-weight: 800;
-  margin-bottom: -1.25vh;
-  margin-top: 2.4vh;
+  margin-bottom: -1vh;
   text-transform: uppercase;
+  line-height: 1;
 }
 
 #artist-name {
