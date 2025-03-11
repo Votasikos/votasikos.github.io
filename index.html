@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REFLECTRADIO</title>
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <script src="https://kit.fontawesome.com/01ec9ad15d.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="logo.png" alt="Header Image" class="header-image">
+    </div>
+  </header>
+  <main>
+    <div id="blocks-container">
+      <section id="now-playing">
+        <h3 id="now-playing-label">Právě hraje</h3>
+        <div id="listener-count">
+          <i class="fas fa-headphones"></i> <span id="listener-number">0</span>
+        </div>
+        <div class="album-artwork">
+          <img id="album-cover" src="" alt="Song Cover Nenalezen 😿">
+        </div>
+        <div class="track-info">
+          <div class="slide-container">
+            <h2 id="song-title">Song</h2>
+            <p id="artist-name">Artist</p>
+          
+          </div>
+        </div>
+      </section>
+
+      <div id="rolling-text">
+        <div id="temperature-info"></div>
+      </div>
+    </div>
+
+    <div id="floating-player">
+      <button id="play-pause-btn">
+        <i id="play-icon" class="fas fa-play"></i>
+        <i id="pause-icon" class="fas fa-pause" style="display: none;"></i>
+      </button>
+      <div class="volume-control">
+        <i class="fas fa-volume-up"></i>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

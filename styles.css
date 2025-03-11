@@ -1,0 +1,340 @@
+@import url('https://fonts.cdnfonts.com/css/pp-neue-montreal');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(to bottom, #252525, #121212);
+  background-attachment: fixed;
+  color: white;
+  font-family: 'Chakra Petch', sans-serif;
+  transition: 2s;
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale; 
+  text-rendering: optimizeLegibility;
+}
+
+header {
+  background: linear-gradient(to bottom, rgba(18, 18, 18, 0.5), rgba(18, 18, 18, 0.0));
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-image {
+  position: relative;
+  width: auto;
+  height: 7.5vh;
+  padding-top: 0vh;
+}
+
+.header-image img {
+  display: block;
+  width: 100%;
+}
+
+.header-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  opacity: 0.5; /* Nastavte dle potřeby */
+  pointer-events: none; /* Zajistí, že nebude blokovat interakce s obrázkem */
+}
+
+
+
+main {
+  padding: 0px;
+  zoom: 90%;
+}
+
+#blocks-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+#now-playing, .block {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 400px;
+  height: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: relative;
+  transition: 2s;
+}
+
+#now-playing-label {
+  position: absolute;
+  text-transform: uppercase;
+  top: 16px;
+  left: 20px;
+  font-size: 18px;
+  color: rgba(255, 255, 255,);
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+}
+
+#listener-count {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#listener-count i {
+  font-size: 17px;
+}
+
+.album-artwork {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0px solid hsla(0, 0%, 100%, 0.25);
+  box-shadow: rgba(0, 0, 0, 0.10) 0px 0px 15px;
+}
+
+.album-artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.track-info {
+  text-align: left;
+  overflow: hidden;
+  margin-top: -10px;
+  margin-bottom: 0;
+  text-shadow: rgb(0, 0, 0, 0.4) 0px 0px 15px;
+}
+
+#song-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: -1.25vh;
+  margin-top: 2.4vh;
+  text-transform: uppercase;
+}
+
+#artist-name {
+  margin-top: 0.8vh;
+  font-size: 18px;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#floating-player {
+  position: fixed;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 15px 25px;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+#floating-player:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+  transform: translateX(-50%) scale(1.05);
+}
+
+#play-pause-btn {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+#play-pause-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+#play-pause-btn i {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s ease;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.volume-control:hover {
+  opacity: 1;
+}
+
+.volume-control i {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s ease;
+}
+
+.volume-control:hover i {
+  transform: scale(1.1);
+}
+
+#volume-slider {
+  width: 100px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  height: 5px;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, width 0.3s ease;
+  accent-color: #ffffff;
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#volume-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#volume-slider:hover {
+  opacity: 1;
+  width: 120px;
+}
+
+.track-info {
+  position: relative;
+  overflow: hidden;
+}
+
+.track-info .slide-container {
+  transition: transform 0.5s ease-in-out;
+}
+
+.track-info.slide-out .slide-container {
+  transform: translateX(-100%);
+}
+
+.track-info.slide-in .slide-container {
+  transform: translateX(0);
+}
+#rolling-text {
+  width: 440px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: relative;
+  text-transform: uppercase;
+}
+
+#temperature-info {
+  position: absolute;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 300;
+  color: white;
+  transform: translateX(100%); /* Počáteční pozice */
+  opacity: 1;
+}
+.temperature {
+  font-weight: 500;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.info-text {
+  font-weight: 400;
+  font-size: 18px;
+  color: hsl(0, 0%, 50%);
+}
+
+@keyframes slideIn {
+  0% {
+    left: 100%; 
+    opacity: 0; 
+  }
+  100% {
+    left: 0;
+    opacity: 1; 
+  }
+}
+
+@keyframes scrollText {
+  0% {
+    left: 0; 
+    opacity: 1; 
+  }
+  100% {
+    left: -100%; 
+    opacity: 1; 
+  }
+}
